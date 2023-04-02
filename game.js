@@ -44,8 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
     sky.appendChild(obstacle)
     obstacle.style.left = obstaclePositionLeft + "px"
     obstacle.style.bottom = obstaclePositionBottom + "px"
-    console.log(randomObstacleHeight)
     obstacle.style.height = randomObstacleHeight + "px"
+
+    function moveObstacle() {
+      obstaclePositionLeft = obstaclePositionLeft - 2
+      obstacle.style.left = obstaclePositionLeft + 'px'
+
+      if(obstaclePositionLeft === -60) {
+        clearInterval(timer)
+        sky.removeChild(obstacle)
+       }
+    }
+    let timer = setInterval(moveObstacle, 24)
   }
 
   createObstacle()

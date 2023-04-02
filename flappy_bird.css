@@ -15,7 +15,7 @@
 
 #ground-div {
   position: absolute;
-  top: 450px;
+  top: 420px;
   width: 550px;
   height: 120px;
   background-color: transparent;
@@ -27,4 +27,11 @@
   height: 76px;
   width: 90px;
   background-image: url("yellow-bird.png");
+}
+
+.obstacle-div {
+  position: absolute;
+  width: 60px;
+  background-color: rgb(76, 49, 49);
+  background-image: url("tree.png");
 }
