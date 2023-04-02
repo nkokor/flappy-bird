@@ -1,33 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let gameDiv = document.getElementById("game-div")
-  let sky = document.getElementById("sky-div")
-  let ground = document.getElementById("ground-div")
-  let bird = document.getElementById("bird-div")
+  let gameOver = false
 
-  let birdPositionLeft = 140
-  let birdPositionBottom = 130
+  let obstacleGap = 130
 
-  let gravity = 2
+  const gameDiv = document.getElementById("game-div")
+  const bird = document.getElementById("bird")
+
+  let birdPositionBottom = 300
+
+  let gravity = 3
 
   function startGame() {
-    if(birdPositionBottom > 35) {
+    if(birdPositionBottom > 130) {
       birdPositionBottom = birdPositionBottom - gravity
-      birdPositionBottom = birdPositionBottom - gravity
-      bird.style.left = birdPositionLeft + "px"
       bird.style.bottom = birdPositionBottom + "px"
     }
-    return
   }
 
-  setInterval(startGame, 30)
+  let gameTimer = setInterval(startGame, 20)
 
+  function endGame() {
+    clearInterval(gameTimer)
+    gameOver = true
+    document.removeEventListener("keyup", flyUp)
+  }
 
   //flying
   function flyUp(event) {
     if(event.keyCode === 38 || event.keyCode === 32 || event.keyCode === 104) {
-      if(birdPositionBottom < 410) {
-        birdPositionBottom = birdPositionBottom + 40
-        bird.style.bottom = birdPositionBottom
+      if(birdPositionBottom < 590) {
+        birdPositionBottom = birdPositionBottom + 50
+        bird.style.bottom = birdPositionBottom + "px"
       }
     }
   }
@@ -36,26 +39,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //obstacles
   function createObstacle() {
-    let obstaclePositionLeft = 550
-    let randomObstacleHeight = Math.random() * 270
-    let obstaclePositionBottom = 0
-    let obstacle = document.createElement('div')
-    obstacle.classList.add("obstacle-div")
-    sky.appendChild(obstacle)
-    obstacle.style.left = obstaclePositionLeft + "px"
-    obstacle.style.bottom = obstaclePositionBottom + "px"
-    obstacle.style.height = randomObstacleHeight + "px"
+    let obstaclePositionLeft = 500
+
+    let randomBottomObstacleBottom = Math.random() * 120
+    if (randomBottomObstacleBottom < 30) {
+      randomBottomObstacleBottom += 90
+    }
+
+    //bottom obstacle
+    const  bottomObstacle = document.createElement('img')
+    bottomObstacle.src = "images/pipe_bottom.png"
+    bottomObstacle.style.left = obstaclePositionLeft + "px"
+    bottomObstacle.style.bottom = randomBottomObstacleBottom + "px"
+
+    //top obstacle
+    const topObstacle = document.createElement('img')
+    topObstacle.src = "images/pipe_top.png"
+    topObstacle.style.left = obstaclePositionLeft + "px"
+    topObstacle.style.bottom = randomBottomObstacleBottom + 300 + obstacleGap + "px"
+
+    if(!gameOver) {
+      bottomObstacle.classList.add("bottom-obstacle")
+      topObstacle.classList.add("top-obstacle")
+      gameDiv.appendChild(topObstacle)
+      gameDiv.appendChild(bottomObstacle)
+    }
 
     function moveObstacle() {
       obstaclePositionLeft = obstaclePositionLeft - 2
-      obstacle.style.left = obstaclePositionLeft + 'px'
+      bottomObstacle.style.left = obstaclePositionLeft + 'px'
+      topObstacle.style.left = obstaclePositionLeft + 'px'
 
-      if(obstaclePositionLeft === -60) {
+      if(obstaclePositionLeft === -65) {
         clearInterval(timer)
-        sky.removeChild(obstacle)
-       }
+        gameDiv.removeChild(bottomObstacle)
+        gameDiv.removeChild(topObstacle)
+      }
+
+      if((obstaclePositionLeft >= 140 && obstaclePositionLeft <= 200) && (birdPositionBottom <= (randomBottomObstacleBottom + 300) ||
+      (birdPositionBottom + 50) >= (randomBottomObstacleBottom + 300 + obstacleGap)
+      )) {
+        endGame()
+        clearInterval(timer)
+      }
     }
-    let timer = setInterval(moveObstacle, 24)
+    let timer = setInterval(moveObstacle, 20)
+    if(!gameOver) {
+      setTimeout(createObstacle, 2000)
+    } 
   }
 
   createObstacle()
