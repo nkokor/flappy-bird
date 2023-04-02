@@ -1,0 +1,30 @@
+#game-div {
+  position: absolute; 
+  margin: auto;
+  height: 700px;
+  width: 550px;
+}
+
+#sky-div {
+  position: absolute;
+  width: 550px;
+  height: 520px;
+  background-color: rgb(133, 210, 235);
+  background-image: url("sky.jpg");
+}
+
+#ground-div {
+  position: absolute;
+  top: 450px;
+  width: 550px;
+  height: 120px;
+  background-color: transparent;
+  background-image: url("grass.png");
+}
+
+#bird-div {
+  position: absolute;
+  height: 76px;
+  width: 90px;
+  background-image: url("yellow-bird.png");
+}
