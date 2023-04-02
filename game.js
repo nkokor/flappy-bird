@@ -3,13 +3,23 @@ document.addEventListener("DOMContentLoaded", () => {
   let ground = document.getElementById("ground-div")
   let bird = document.getElementById("bird-div")
 
-  let birdPositionLeft = "70px"
-  let birdPositionBottom = "80px"
+  let birdPositionLeft = 140
+  let birdPositionBottom = 130
+
+  let gravity = 2
 
   function startGame() {
-    bird.style.left = birdPositionLeft
+    birdPositionBottom = birdPositionBottom - gravity
+    bird.style.left = birdPositionLeft + "px"
+    bird.style.bottom = birdPositionBottom + "px"
+  }
+
+  setInterval(startGame, 30)
+
+  function flyUp() {
+    birdPositionBottom = birdPositionBottom + 40
     bird.style.bottom = birdPositionBottom
   }
 
-  startGame()
+  document.addEventListener("keyup", flyUp)
 })
