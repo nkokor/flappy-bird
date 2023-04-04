@@ -40,13 +40,14 @@ body {
 #bird {
   position: absolute;
 
-  --bird-top: 280;
+  --bird-bottom: 380;
   --bird-height: 50px;
   --bird-width: 60px;
 
   height: var(--bird-height);
   width: var(--bird-width);
-  top: calc(var(--bird-top) * 1px);
+  bottom: calc(var(--bird-bottom) * 1px);
+  
   left: 130px;
   z-index: 2000;
   background-image: url("images/blue_bird.png");

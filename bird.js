@@ -1,17 +1,10 @@
-const bird = document.querySelector("[data-bird]")
+const bird = document.getElementById("bird")
 
-const BIRD_SPEED = 0.15 
+const GRAVITY = 0.13 
+const BIRD_SPEED = 0.26
 const JUMP_DURATION = 130
+
 let timeSinceLastJump = Number.POSITIVE_INFINITY
-
-function setTop(top) {
-  bird.style.setProperty("--bird-top", top)
-}
-
-function getTop() {
-  let top = parseFloat(getComputedStyle(bird).getPropertyValue("--bird-top"))
-  return top
-}
 
 function handleJump(event) {
   if(event.code == "Space") {
@@ -21,23 +14,42 @@ function handleJump(event) {
   }
 }
 
+function flyUp(delta) {
+  let birdBottom = parseFloat(getComputedStyle(bird).getPropertyValue("--bird-bottom"))
+  birdBottom = birdBottom + BIRD_SPEED * delta
+  bird.style.setProperty("--bird-bottom", birdBottom)
+}
+
+function dropDown(delta) {
+  let birdBottom = parseFloat(getComputedStyle(bird).getPropertyValue("--bird-bottom"))
+  birdBottom = birdBottom - GRAVITY * delta
+  bird.style.setProperty("--bird-bottom", birdBottom)
+}
+
 export function updateBird(delta) {
   if(timeSinceLastJump < JUMP_DURATION) {
-    setTop(getTop() - BIRD_SPEED * delta)
+    flyUp(delta)
   } else {
-    setTop(getTop() + BIRD_SPEED * delta)
+    dropDown(delta)
   }
   timeSinceLastJump = timeSinceLastJump + delta
 }
 
 export function setupBird() {
-  setTop(280)
+  let birdBottom = 380
+  bird.style.setProperty("--bird-bottom", birdBottom)
+
   document.removeEventListener("keydown", handleJump)
   document.addEventListener("keydown", handleJump)
 }
 
 export function isInFrame() {
-  if(getTop() >= 10 && getTop() + 195 <= 700) {
+  let birdBottom = parseFloat(getComputedStyle(bird).getPropertyValue("--bird-bottom"))
+  if(birdBottom >= 144 && (birdBottom + parseFloat(getComputedStyle(bird).getPropertyValue("--bird-height"))) <= 690) {
     return true
   } return false
+}
+
+export function hitObstacle() {
+  return false
 }

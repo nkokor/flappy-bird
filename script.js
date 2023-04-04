@@ -1,13 +1,13 @@
-import { updateBird, setupBird, isInFrame } from "./bird.js"
+import { updateBird, setupBird, isInFrame, hitObstacle } from "./bird.js"
 
 document.addEventListener("keypress", handleStart, { once: true })
-const title = document.querySelector("[data-title]")
-const subtitle = document.querySelector("[data-subtitle")
+const title = document.getElementById("title")
+const subtitle = document.getElementById("subtitle")
 
 let lastTime
 
 function checkLose() {
-  if(isInFrame() == false) {
+  if(isInFrame() == false || hitObstacle() == true) {
     return true
   } 
   return false
