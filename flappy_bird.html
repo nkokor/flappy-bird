@@ -2,15 +2,23 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <script src="script.js" type="module"></script>
     <title>Flappy Bird</title>
     <link rel="stylesheet" href="flappy_bird.css">
-    <script src="game.js"></script>
   </head>
-  <body>
+  <body> 
+
     <div id="game-div">
+
+      <h2 data-title id="title">Press Space Key To Start
+        <small data-subtitle class="subtitle hidden">0 pipes</small>
+      </h2>
+
+      <img data-bird src="images/bird.png" alt="bird" id="bird">
       <img src="images/sky.png" id="sky">
-      <img src="images/bird.png" id="bird">
       <img src="images/ground.png" id="ground">
+
     </div>
+
   </body>
 </html>
