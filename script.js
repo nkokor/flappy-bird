@@ -1,4 +1,5 @@
-import { updateBird, setupBird, isInFrame, hitObstacle } from "./bird.js"
+import { updateBird, setupBird, isInFrame } from "./bird.js"
+import { updatePipes } from "./pipe.js"
 
 document.addEventListener("keypress", handleStart, { once: true })
 const title = document.getElementById("title")
@@ -7,7 +8,7 @@ const subtitle = document.getElementById("subtitle")
 let lastTime
 
 function checkLose() {
-  if(isInFrame() == false || hitObstacle() == true) {
+  if(isInFrame() == false ) {
     return true
   } 
   return false
@@ -21,6 +22,7 @@ function updateLoop(time) {
   }
   const delta = time - lastTime
   updateBird(delta)
+  updatePipes(delta)
   if(checkLose()) {
     return handleLose()
   }

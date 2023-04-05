@@ -11,7 +11,7 @@ body {
 #game-div { 
   overflow: hidden;
   border-color: rgb(36, 36, 36);
-  position: absolute; 
+  position: absolute;
   background-color: black;
   height: 700px;
   width: 500px;
@@ -22,10 +22,11 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content:baseline;
   align-items: center;
   z-index: 10000;
   inset: 0;
+  padding-top: 100px;
   margin: 0px;
 }
 
@@ -47,7 +48,7 @@ body {
   height: var(--bird-height);
   width: var(--bird-width);
   bottom: calc(var(--bird-bottom) * 1px);
-  
+
   left: 130px;
   z-index: 2000;
   background-image: url("images/blue_bird.png");
@@ -65,5 +66,35 @@ body {
   position: absolute;
   width: 65px;
   height: 300px;
+}
+
+.pipe {
+  --pipe-width: 60;
+  --pipe-left: 500;
+  --hole-top: 500;
+  --hole-height: 220;
+  position: absolute;
+  top: 0px;
+  bottom: 144px;
+  width: calc(var(--pipe-width) * 1px);
+  left: calc(var(--pipe-left) * 1px);
+}
+
+.pipe > .segment {
+  position: absolute;
+  width: 100%;
+  height: 220px;
+  z-index: 300;
+  background: transparent;
+}
+
+.pipe > .top {
+  top: 0px;
+  bottom: calc(var(--hole-top) * 1px)
+}
+
+.pipe > .bottom {
+  bottom: 0px;
+  top: calc(100vh - var(--hole-top)  + calc(var(--hole-height) )* 1px)
 }
 

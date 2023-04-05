@@ -49,7 +49,3 @@ export function isInFrame() {
     return true
   } return false
 }
-
-export function hitObstacle() {
-  return false
-}
