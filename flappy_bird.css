@@ -71,8 +71,8 @@ body {
 .pipe {
   --pipe-width: 60;
   --pipe-left: 500;
-  --hole-top: 500;
-  --hole-height: 220;
+  --position-bottom: 0;
+  --position-top: 0;
   position: absolute;
   top: 0px;
   bottom: 144px;
@@ -83,18 +83,17 @@ body {
 .pipe > .segment {
   position: absolute;
   width: 100%;
-  height: 220px;
+  height: 300px;
   z-index: 300;
   background: transparent;
 }
 
 .pipe > .top {
-  top: 0px;
-  bottom: calc(var(--hole-top) * 1px)
+  top: calc(var(--position-top) * 1px);
 }
 
 .pipe > .bottom {
-  bottom: 0px;
-  top: calc(100vh - var(--hole-top)  + calc(var(--hole-height) )* 1px)
+  bottom: calc(var(--position-bottom) * 1px);
+  height: 300px;
 }
 
