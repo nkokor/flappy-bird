@@ -1,7 +1,7 @@
 const bird = document.getElementById("bird")
 
 const GRAVITY = 0.13 
-const BIRD_SPEED = 0.26
+const BIRD_SPEED = 0.22
 const JUMP_DURATION = 130
 
 let timeSinceLastJump = Number.POSITIVE_INFINITY

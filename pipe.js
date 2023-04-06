@@ -1,4 +1,4 @@
-const HOLE_HEIGHT = 120
+const PIPE_DISTANCE = 120
 const PIPE_INTERVAL = 600
 const PIPE_SPEED = 0.23
 
@@ -17,7 +17,11 @@ function createPipe() {
   pipeElem.append(topPipe)
   pipeElem.append(bottomPipe)
   pipeElem.classList.add("pipe")
-  pipeElem.style.setProperty("--hole-top", randomNumberBetween(HOLE_HEIGHT * 1.5, 460 - HOLE_HEIGHT * 0.5))
+  let position = randomNumberBetween(0, 144)
+  pipeElem.style.setProperty("--position-bottom", -1 * position)
+  let topPipeHeight = -1 * (300 - position - PIPE_DISTANCE)
+  console.log(topPipeHeight)
+  pipeElem.style.setProperty("--position-top", topPipeHeight)
 
   const pipe = {
    get left() {
@@ -28,6 +32,7 @@ function createPipe() {
       pipeElem.style.setProperty("--pipe-left", left)
     }
   }
+  
   pipe.left = 500;
   let gameDiv = document.getElementById("game-div")
   gameDiv.appendChild(pipeElem)
@@ -53,8 +58,6 @@ export function updatePipes(delta) {
     createPipe()
   }
   pipes.forEach(pipe => {
-    console.log(delta)
     pipe.left = pipe.left - delta * PIPE_SPEED
-    console.log(pipe.left)
   })
 }
