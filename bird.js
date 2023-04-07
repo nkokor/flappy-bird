@@ -35,6 +35,10 @@ export function updateBird(delta) {
   timeSinceLastJump = timeSinceLastJump + delta
 }
 
+export function getBirdBottom() {
+  return parseFloat(getComputedStyle(bird).getPropertyValue('--bird-bottom'))
+}
+
 export function setupBird() {
   let birdBottom = 380
   bird.style.setProperty("--bird-bottom", birdBottom)
@@ -49,3 +53,5 @@ export function isInFrame() {
     return true
   } return false
 }
+
+

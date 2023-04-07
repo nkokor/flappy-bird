@@ -1,5 +1,5 @@
 import { updateBird, setupBird, isInFrame } from "./bird.js"
-import { updatePipes } from "./pipe.js"
+import { updatePipes, setupPipes, removePipes, getPassedPipesCount, birdHitPipe } from "./pipe.js"
 
 document.addEventListener("keypress", handleStart, { once: true })
 const title = document.getElementById("title")
@@ -8,7 +8,7 @@ const subtitle = document.getElementById("subtitle")
 let lastTime
 
 function checkLose() {
-  if(isInFrame() == false ) {
+  if(isInFrame() == false || birdHitPipe() == true) {
     return true
   } 
   return false
@@ -33,6 +33,7 @@ function updateLoop(time) {
 function handleStart() {
   title.classList.add("hidden")
   setupBird()
+  setupPipes()
   lastTime = null
   window.requestAnimationFrame(updateLoop)
 }
@@ -41,7 +42,9 @@ function handleLose() {
   setTimeout(() => {
     title.classList.remove("hidden")
     subtitle.classList.remove("hidden")
-    subtitle.textContent = "0 pipes"
+    subtitle.innerText = getPassedPipesCount() + " pipes"
+    removePipes()
+    setupBird()
     document.addEventListener("keypress", handleStart, { once: true })
-  })
+  }, 160)
 }

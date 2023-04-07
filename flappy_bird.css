@@ -18,6 +18,14 @@ body {
   background-image: url("images/scene.png");
 }
 
+#pipes-div {
+  position: absolute;
+  height: 700px;
+  width: 500px;
+  top:  0px;
+  bottom: 0px;
+}
+
 #title {
   position: absolute;
   display: flex;
@@ -42,11 +50,12 @@ body {
   position: absolute;
 
   --bird-bottom: 380;
-  --bird-height: 50px;
-  --bird-width: 60px;
 
-  height: var(--bird-height);
-  width: var(--bird-width);
+  --bird-height: 50;
+  --bird-width: 60;
+
+  height: calc(var(--bird-height) * 1px);
+  width: calc(var(--bird-width) * 1px);
   bottom: calc(var(--bird-bottom) * 1px);
 
   left: 130px;
@@ -62,15 +71,8 @@ body {
   z-index: 1000;
 }
 
-.bottom-obstacle, .top-obstacle {
-  position: absolute;
-  width: 65px;
-  height: 300px;
-}
-
 .pipe {
   --pipe-width: 60;
-  --pipe-left: 500;
   --position-bottom: 0;
   --position-top: 0;
   position: absolute;
@@ -94,6 +96,5 @@ body {
 
 .pipe > .bottom {
   bottom: calc(var(--position-bottom) * 1px);
-  height: 300px;
 }
 
