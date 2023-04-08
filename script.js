@@ -1,5 +1,5 @@
-import { updateBird, setupBird, isInFrame, getBirdRect } from "./bird.js"
-import { updatePipes, setupPipes, removePipes, getPassedPipesCount, getPipeRects } from "./pipe.js"
+let pipe = Pipe
+let bird = Bird
 
 document.addEventListener("keypress", handleStart, { once: true })
 const title = document.getElementById("title")
@@ -7,7 +7,10 @@ const subtitle = document.getElementById("subtitle")
 
 let lastTime
 
-function isCollision(rect1, rect2) {
+const hitAudio = new Audio("sound_effects/hit.mp3")
+const dieAudio = new Audio("sound_effects/die.mp3")
+  
+function areCollided(rect1, rect2) {
   return (
     rect1.left < rect2.right &&
     rect1.top < rect2.bottom &&
@@ -16,13 +19,25 @@ function isCollision(rect1, rect2) {
   )
 }
 
-function checkLose() {
-  const birdRect = getBirdRect()
-  const insidePipe = getPipeRects().some(rect => isCollision(birdRect, rect))
-  if(isInFrame() == false || insidePipe) {
+function birdAndPipeCollided() {
+  let collided = pipe.getPipeRects().some(rect => areCollided(bird.getBirdRect(), rect))
+  if(collided == true) {
+    hitAudio.play()
+  }
+  return collided
+}
+
+
+function isGameOver() {
+  if(bird.isInFrame() == false) {
+    dieAudio.play()
     return true
-  } 
-  return false
+  } else if(birdAndPipeCollided() == true) {
+    hitAudio.play()
+    return true
+  } else {
+    return false
+  }
 }
 
 function updateLoop(time) {
@@ -32,9 +47,9 @@ function updateLoop(time) {
     return
   }
   const delta = time - lastTime
-  updateBird(delta)
-  updatePipes(delta)
-  if(checkLose()) {
+  bird.updateBird(delta)
+  pipe.updatePipes(delta)
+  if(isGameOver()) {
     return handleLose()
   }
   lastTime = time
@@ -43,8 +58,8 @@ function updateLoop(time) {
 
 function handleStart() {
   title.classList.add("hidden")
-  setupBird()
-  setupPipes()
+  bird.setupBird()
+  pipe.setupPipes()
   lastTime = null
   window.requestAnimationFrame(updateLoop)
 }
@@ -53,9 +68,9 @@ function handleLose() {
   setTimeout(() => {
     title.classList.remove("hidden")
     subtitle.classList.remove("hidden")
-    subtitle.innerText = getPassedPipesCount() + " pipes"
-    removePipes()
-    setupBird()
+    //subtitle.innerText = pipe.getPassedPipesCount() + " pipes"
+    pipe.removePipes()
+    bird.setupBird()
     document.addEventListener("keypress", handleStart, { once: true })
-  }, 160)
+  }, 170)
 }
