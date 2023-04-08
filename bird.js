@@ -54,4 +54,7 @@ export function isInFrame() {
   } return false
 }
 
+export function getBirdRect() {
+  return bird.getBoundingClientRect()
+}
 

@@ -1,8 +1,8 @@
-import { getBirdBottom } from "./bird.js"
+import { getBirdRect } from "./bird.js"
 
 const PIPE_DISTANCE = 120
-const PIPE_INTERVAL = 600
-const PIPE_SPEED = 0.23
+const PIPE_INTERVAL = 900
+const PIPE_SPEED = 0.20
 
 let pipes = []
 
@@ -40,8 +40,11 @@ function createPipe() {
     get bottom() {
       return parseFloat(getComputedStyle(pipeElem).getPropertyValue("--position-bottom"))
     },
-    get rect() {
-      return pipeElem.getBoundingClientRect()
+    rects() {
+      return [
+        topPipe.getBoundingClientRect(),
+        bottomPipe.getBoundingClientRect()
+      ]
     },
     remove() {
       pipes = pipes.filter(p => p !== pipe)
@@ -92,17 +95,8 @@ export function getPassedPipesCount() {
   return passedPipesCount
 }
 
-export function birdHitPipe() {
-  let hit = false
-  pipes.forEach(p => {
-    let rect = p.rect
-    let top = p.top
-    let bottom = p.bottom
-    if(rect.left <= 190 && rect.left >= 130) {
-        hit = true
-    }
-  }) 
-  return hit
+export function getPipeRects() {
+  return pipes.flatMap(pipe => pipe.rects())
 }
 
 export function removePipes() {
