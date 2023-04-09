@@ -34,8 +34,14 @@ body {
   align-items: center;
   z-index: 10000;
   inset: 0;
-  padding-top: 100px;
+  padding-top: 461px;
   margin: 0px;
+}
+
+#start {
+  height: 60px;
+  width: 160px;
+  cursor: pointer;
 }
 
 .subtitle {

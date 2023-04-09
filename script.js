@@ -1,7 +1,9 @@
 let pipe = Pipe
 let bird = Bird
 
-document.addEventListener("keypress", handleStart, { once: true })
+let startButton = document.getElementById("start")
+
+startButton.addEventListener("click", handleStart, { once: true })
 const title = document.getElementById("title")
 const subtitle = document.getElementById("subtitle")
 
@@ -26,7 +28,6 @@ function birdAndPipeCollided() {
   }
   return collided
 }
-
 
 function isGameOver() {
   if(bird.isInFrame() == false) {
@@ -71,6 +72,6 @@ function handleLose() {
     //subtitle.innerText = pipe.getPassedPipesCount() + " pipes"
     pipe.removePipes()
     bird.setupBird()
-    document.addEventListener("keypress", handleStart, { once: true })
+    startButton.addEventListener("click", handleStart, { once: true })
   }, 170)
 }
