@@ -15,7 +15,6 @@ body {
   background-color: black;
   height: 700px;
   width: 500px;
-  background-image: url("images/scene.png");
 }
 
 #pipes-div {
@@ -41,7 +40,12 @@ body {
 #start {
   height: 60px;
   width: 160px;
+  transition: all .2s ease-in-out;
   cursor: pointer;
+}
+
+#start:hover {
+  transform: scale(1.06);
 }
 
 .subtitle {
@@ -66,7 +70,6 @@ body {
 
   left: 130px;
   z-index: 2000;
-  background-image: url("images/blue_bird.png");
 }
 
 #ground {
