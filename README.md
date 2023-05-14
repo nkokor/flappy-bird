@@ -5,6 +5,7 @@ A simple game inspired by Flappy Bird created using HTML, CSS and JavaScript
 Still in progress...
 
 # Gameplay
+
 ![Screenshot](gameplay_screenshots/start.jpg)
 ![Screenshot](gameplay_screenshots/gameplay.jpg)
 
