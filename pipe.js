@@ -1,6 +1,8 @@
 const Pipe = (() => {
+  const pointAudio = new Audio("sound_effects/point.mp3")
+
   const PIPE_DISTANCE = 120
-  const PIPE_INTERVAL = 800
+  const PIPE_INTERVAL = 900
   const PIPE_SPEED = 0.20
   
   let score = document.getElementById("score")
@@ -10,6 +12,8 @@ const Pipe = (() => {
   let timeSinceLastPipe = 0
   
   let passedPipesCount = 0
+
+  let firstPipe = false
   
   function randomNumberBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min) 
@@ -81,6 +85,7 @@ const Pipe = (() => {
   function setupPipes() {
     timeSinceLastPipe = PIPE_INTERVAL
     passedPipesCount = 0
+    firstPipe = true
   }
   
   function updatePipes(delta) {
@@ -91,8 +96,14 @@ const Pipe = (() => {
       createPipe()
     }
     pipes.forEach(pipe => {
-      if(pipe.passed == false && pipe.left <= 90) {
+      if(pipe.passed == false && pipe.left <= 85) {
+        if(firstPipe == true) {
+          firstPipe = false
+          passedPipesCount = passedPipesCount + 1
+          score.innerText = "Score: " + passedPipesCount
+        }
         pipe.passed = true;
+        pointAudio.play()
       }
       if(pipe.left + 60 < 0) {
         passedPipesCount = passedPipesCount + 1
