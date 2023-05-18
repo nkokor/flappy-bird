@@ -17,6 +17,16 @@ body {
   width: 500px;
 }
 
+#score {
+  position: fixed;
+  z-index: 3000;
+  top: 0px;
+  left: 20px;
+  font-family: Consolas;
+  font-weight: 600;
+  font-size: 27px;
+}
+
 #pipes-div {
   position: absolute;
   height: 700px;
@@ -106,4 +116,19 @@ body {
 .pipe > .bottom {
   bottom: calc(var(--position-bottom) * 1px);
 }
+
+#best-score, #current-score {
+  font-size: x-large;
+  position: absolute;
+  font-weight: bold;
+}
+
+#current-score {
+  top: 90px;
+} 
+
+#best-score {
+  top: 115px;
+}
+
 

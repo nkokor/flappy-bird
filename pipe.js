@@ -3,6 +3,8 @@ const Pipe = (() => {
   const PIPE_INTERVAL = 800
   const PIPE_SPEED = 0.20
   
+  let score = document.getElementById("score")
+  
   let pipes = []
   
   let timeSinceLastPipe = 0
@@ -39,6 +41,13 @@ const Pipe = (() => {
       get bottom() {
         return parseFloat(getComputedStyle(pipeElem).getPropertyValue("--position-bottom"))
       },
+      get passed() {
+        let pipePassed = false
+        return pipePassed
+      },
+      set passed(passed) {
+        pipePassed = passed
+      },
       rects() {
         return [
           topPipe.getBoundingClientRect(),
@@ -68,6 +77,11 @@ const Pipe = (() => {
     gameDiv.appendChild(segment)
     return segment
   }
+
+  function setupPipes() {
+    timeSinceLastPipe = PIPE_INTERVAL
+    passedPipesCount = 0
+  }
   
   function updatePipes(delta) {
     timeSinceLastPipe = timeSinceLastPipe + delta
@@ -77,17 +91,16 @@ const Pipe = (() => {
       createPipe()
     }
     pipes.forEach(pipe => {
+      if(pipe.passed == false && pipe.left <= 90) {
+        pipe.passed = true;
+      }
       if(pipe.left + 60 < 0) {
         passedPipesCount = passedPipesCount + 1
+        score.innerText = "Score: " + passedPipesCount
         return pipe.remove()
       }
       pipe.left = pipe.left - delta * PIPE_SPEED
     })
-  }
-  
-  function setupPipes() {
-    timeSinceLastPipe = PIPE_INTERVAL
-    passedPipesCount = 0
   }
   
   function getPassedPipesCount() {

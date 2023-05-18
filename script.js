@@ -1,11 +1,15 @@
 let pipe = Pipe
 let bird = Bird
 
+let bestScore = 0
+
 let startButton = document.getElementById("start")
 
 startButton.addEventListener("click", handleStart, { once: true })
 const title = document.getElementById("title")
-const subtitle = document.getElementById("subtitle")
+const currentScoreLabel = document.getElementById("current-score")
+const bestScoreLabel = document.getElementById("best-score")
+const score = document.getElementById("score")
 
 let lastTime
 
@@ -59,17 +63,25 @@ function updateLoop(time) {
 
 function handleStart() {
   title.classList.add("hidden")
+  score.classList.remove("hidden")
   bird.setupBird()
   pipe.setupPipes()
+  score.innerText = "Score: " + pipe.getPassedPipesCount()
   lastTime = null
   window.requestAnimationFrame(updateLoop)
 }
 
 function handleLose() {
   setTimeout(() => {
+    score.classList.add("hidden")
     title.classList.remove("hidden")
-    subtitle.classList.remove("hidden")
-    //subtitle.innerText = pipe.getPassedPipesCount() + " pipes"
+    currentScoreLabel.classList.remove("hidden")
+    bestScoreLabel.classList.remove("hidden")
+    currentScoreLabel.innerText = "Your score: " + pipe.getPassedPipesCount()
+    if(pipe.getPassedPipesCount() >= bestScore) {
+      bestScore = pipe.getPassedPipesCount()
+    }
+    bestScoreLabel.innerText = "Your best score: " + bestScore
     pipe.removePipes()
     bird.setupBird()
     startButton.addEventListener("click", handleStart, { once: true })
