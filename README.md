@@ -6,8 +6,18 @@ Still in progress...
 
 # Gameplay
 
+Start
+
 ![Screenshot](gameplay_screenshots/start.jpg)
-![Screenshot](gameplay_screenshots/gameplay.jpg)
+
+Gameplay
+
+![Screenshot](gameplay_screenshots/gameplay1.jpg)
+![Screenshot](gameplay_screenshots/gameplay2.jpg)
+
+Score
+
+![Screenshot](gameplay_screenshots/score.jpg)
 
 
 # Setup
