@@ -4,8 +4,8 @@ const Bird = (() => {
   const flyAudio = new Audio("sound_effects/flap.mp3")
   const dieAudio = new Audio("sound_effects/die.mp3")
 
-  const GRAVITY = 0.19 
-  const BIRD_SPEED = 0.3
+  const GRAVITY = 0.13 
+  const BIRD_SPEED = 0.2
   const JUMP_DURATION = 130
   
   let timeSinceLastJump = Number.POSITIVE_INFINITY
