@@ -2,8 +2,6 @@
 
 A simple game inspired by Flappy Bird created using HTML, CSS and JavaScript
 
-Still in progress...
-
 # Gameplay
 
 Start
